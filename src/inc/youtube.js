@@ -92,7 +92,7 @@ function Display( el )
 
 			// define and apply our button fadeout transition
 			Object.assign( button.style, {
-				transition: 'opacity 1s linear .5s',
+				transition: 'opacity .5s linear .5s',
 				opacity: '0',
 			});
 
