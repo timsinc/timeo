@@ -1,3 +1,3 @@
 # Timeo.js
 
-Easily embed responsive videos from YouTube, Vimeo, or self-hosted MP4s with image poster options, autoplay, etc.
+Easily embed responsive videos from YouTube, Vimeo, or self-hosted MP4s with standardized options including poster images, autoplay, etc. Simply pass a dom element with the data-timeo attributes to the Timeo() function. This is gonna need to be clarified a bit...
