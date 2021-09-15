@@ -1,5 +1,6 @@
 import './timeo.css';
 import YouTube from './inc/youtube';
+import Vimeo from './inc/vimeo';
 
 window.Timeo = function( selector )
 {
@@ -30,7 +31,7 @@ window.Timeo = function( selector )
 		}
 
 		if ( type === 'youtube' ) YouTube( item );
-		//if ( type === 'vimeo' ) initVimeo( item );
+		if ( type === 'vimeo' ) Vimeo( item );
 		//if ( type === 'mp4' ) doMP4( item );
 	});
 }

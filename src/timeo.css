@@ -70,7 +70,6 @@
 	background-position: 57% 50%;
 	background-size: 37% auto;
 	background-color: rgba(0,0,0,.5);
-	transition: background-color .2s;
 }
 
 .timeo-button:hover::before

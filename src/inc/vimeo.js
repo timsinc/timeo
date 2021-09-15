@@ -1,27 +1,28 @@
 function Init( el )
 {
-	if ( typeof window.timeoYouTubeAPIReady === 'undefined' )
+	if ( typeof window.timeoVimeoAPIReady === 'undefined' )
 	{
-		window.timeoYouTubeAPIReady = false;
+		window.timeoVimeoAPIReady = false;
 	}
 
-	window.onYouTubeIframeAPIReady = function()
+	window.onVimeoAPIReady = function()
 	{
-		window.timeoYouTubeAPIReady = true;
+		window.timeoVimeoAPIReady = true;
 	}
 
-	if ( ! document.querySelector( 'script#timeo-youtube-api' ) )
+	if ( ! document.querySelector( 'script#timeo-vimeo-api' ) )
 	{
 		let apiScript = document.createElement('script');
-		apiScript.id = 'timeo-youtube-api';
-		apiScript.src = 'https://www.youtube.com/iframe_api';
+		apiScript.id = 'timeo-vimeo-api';
+		apiScript.src = 'https://player.vimeo.com/api/player.js';
+		apiScript.onload = window.onVimeoAPIReady;
 		let firstScript = document.getElementsByTagName('script')[0];
 		firstScript.parentNode.insertBefore( apiScript, firstScript );
 	}
 
 	let waiter = window.setInterval( function() 
 	{
-		if ( window.timeoYouTubeAPIReady )
+		if ( window.timeoVimeoAPIReady )
 		{
 			clearInterval( waiter );
 			Display( el );
@@ -33,7 +34,7 @@ function Display( el )
 {
 	// initialize variables
 	let tag = el;
-	let id = tag.getAttribute('data-timeo-src') || false; 								// (str) youtube id
+	let id = tag.getAttribute('data-timeo-src') || false; 								// (str) vimeo id
 	let width = tag.getAttribute('data-timeo-width') || 480; 							// (int) max video width
 	let align = tag.getAttribute('data-timeo-align').toLowerCase() || 'left';			// (str) left, right, center
 	let poster = tag.getAttribute('data-timeo-poster') || false;						// (str) poster image url
@@ -97,7 +98,7 @@ function Display( el )
 			});
 
 			// play the video
-			VideoPlayer.playVideo();
+			VideoPlayer.play();
 		});
 
 		// append button to viewport
@@ -109,45 +110,46 @@ function Display( el )
 	viewport.appendChild( wrapper );
 	wrapper.appendChild( embed );
 
-	// initialize youtube player
+	// initialize vimeo player
 
 	let playerVars = {
-		playsinline: 1,
+		id: id,
+		width: 800,
+		height: 450,
+		playsinline: true,
+		title: false,
+		portrait: false,
+		byline: false,		
 	};
 
 	if ( autoplay )
 	{
 		Object.assign( playerVars, {
-			autoplay: 1,
-			mute: 1,
-			loop: 1,
-			playlist: id,
+			muted: true,
+			autoplay: true,
+			loop: true,
+			background: true,
 		});
 	}
-	
-	let VideoPlayer = new YT.Player( embed, {
-		width: 800,
-		height: 450,
-		videoId: id,
-		playerVars: playerVars,
-		events: {
-			onReady: ( event ) => {
-				// unhide the video window when the video player is ready
-				viewport.style.visibility = 'visible';
-			},
-			onStateChange: ( event ) => {
-				// if video has a poster image, show it when the video ends
-				if ( !! poster && event.data === 0 )
-				{
-					Object.assign( button.style, {
-						transition: 'none',
-						visibility: 'visible',
-						opacity: '1',
-					});
-				}
-			},
-		},
+
+	let VideoPlayer = new Vimeo.Player( embed, playerVars );
+
+	// when the video player is ready, unhide the video window
+	VideoPlayer.on( 'loaded', function( data ) {
+		viewport.style.visibility = 'visible';
 	});
+
+	// if video has a poster image, show it when the video ends
+	if ( !! poster )
+	{
+		VideoPlayer.on( 'ended', function( data ) {					
+			Object.assign( button.style, {
+				transition: 'none',
+				visibility: 'visible',
+				opacity: '1',
+			});
+		});	
+	}
 }
 
 export default Init;
