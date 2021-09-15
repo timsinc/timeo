@@ -3,7 +3,7 @@ import YouTube from './inc/youtube';
 import Vimeo from './inc/vimeo';
 import MP4 from './inc/mp4';
 
-window.Timeo = function( selector )
+const Init = function( selector )
 {
 	if ( typeof selector === 'undefined' ) 
 	{
@@ -35,4 +35,6 @@ window.Timeo = function( selector )
 		if ( type === 'vimeo' ) Vimeo( item );
 		if ( type === 'mp4' ) MP4( item );
 	});
-}
+};
+
+window.Timeo = { Init };

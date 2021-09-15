@@ -6,6 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
 <link rel="stylesheet" href="./../dist/timeo.min.css">
+<script>
+	function SinclairWaitForScript( name, callback ) {
+		if ( window[name] ) { callback(); return; }
+		setTimeout( function() { SinclairWaitForScript( name, callback ); }, 50 );
+	}
+</script>
 </head>
 <body>
 
@@ -39,11 +45,13 @@
 		data-timeo-autoplay="0"
 	></div>
 
-	<script src="./../dist/timeo.min.js"></script>
-
 	<script>
-		Timeo('#my-unique-video-id-1, #my-unique-video-id-2, #my-unique-video-id-3');
+		SinclairWaitForScript( 'Timeo', function() {
+			Timeo.Init('#my-unique-video-id-1, #my-unique-video-id-2, #my-unique-video-id-3');
+		});
 	</script>
+
+	<script src="./../dist/timeo.min.js"></script>
 
 </body>
 </html>
