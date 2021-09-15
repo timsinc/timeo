@@ -1,0 +1,24 @@
+{
+	"name": "timeo",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"watch": "parcel watch src/timeo.js --no-cache --no-source-maps --no-hmr --out-file timeo.min.js",
+		"build": "parcel build src/timeo.js --no-cache --no-source-maps --out-file timeo.min.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/timsinc/timeo.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/timsinc/timeo/issues"
+	},
+	"homepage": "https://github.com/timsinc/timeo#readme",
+	"devDependencies": {
+		"parcel-bundler": "^1.12.5"
+	}
+}
