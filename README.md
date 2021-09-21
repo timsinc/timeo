@@ -1,3 +1,1 @@
 # Timeo.js
-
-Details coming soon, hopefully...
